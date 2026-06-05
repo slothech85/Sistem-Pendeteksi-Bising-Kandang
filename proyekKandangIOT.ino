@@ -1,13 +1,11 @@
-#define BLYNK_TEMPLATE_ID   "TMPL6hy3Rq51w"
-#define BLYNK_TEMPLATE_NAME "Sens0r Bis1ng K4ndang"
-#define BLYNK_AUTH_TOKEN    "rLaUh-Hzm_AhdFI0CzoBiok2uzn2tLCW"
-
+#define BLYNK_TEMPLATE_ID   "TemplateID"
+#define BLYNK_TEMPLATE_NAME "Template Name"
+#define BLYNK_AUTH_TOKEN    "auth_Token"
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include <BlynkSimpleEsp32.h>
-
 #define BLYNK_PRINT Serial
 
 // Inisialisasi BlynkTimer
@@ -78,17 +76,17 @@ void cekDanKirimSensor() {
     digitalWrite(ledMerah,  LOW);
     statusKandang = "AMAN";
   }
-  else if (amplitudoV < 3.22) {
-    digitalWrite(ledHijau,  LOW);
-    digitalWrite(ledKuning, HIGH);
-    digitalWrite(ledMerah,  LOW);
-    statusKandang = "WASPADA";
-  }
-  else {
+  else if (amplitudoV >= 2.30 && frekuensi >= 250.0 && frekuensi <= 1500.0) {
     digitalWrite(ledHijau,  LOW);
     digitalWrite(ledKuning, LOW);
     digitalWrite(ledMerah,  HIGH);
     statusKandang = "BAHAYA";
+  }
+  else {
+    digitalWrite(ledHijau,  LOW);
+    digitalWrite(ledKuning, HIGH);
+    digitalWrite(ledMerah,  LOW);
+    statusKandang = "WASPADA";
   }
 
   // ========== TAMPIL DI LCD ==========
